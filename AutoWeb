@@ -1,0 +1,24 @@
+-- All-in-One Script for External Web Server and Server Joining
+
+-- Services
+local httpService = game:GetService("HttpService")
+local players = game:GetService("Players")
+
+-- External Web Server URL
+local serverUrl = "https://your-glitch-project.glitch.me/webhook" -- or your Repl.it URL
+
+-- Function to send data to external web server
+local function sendToServer(executorName)
+local data = {
+executorName = executorName
+}
+local jsonData = httpService:JSONEncode(data)
+httpService:PostAsync(serverUrl, jsonData, Enum.HttpContentType.ApplicationJson)
+end
+
+local function executeScript()
+local player = players.LocalPlayer
+if player then
+sendToServer(player.Name)
+end
+end
